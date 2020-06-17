@@ -19,7 +19,7 @@ if ENV == 'dev':
     REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
     START_PAGE_LINK = "{}:{}/start".format(CLIENT_SIDE_URL, PORT)
 elif ENV == 'heroku':
-    CLIENT_SIDE_URL = "https://musicincontext.herokuapp.com"
+    CLIENT_SIDE_URL = "https://music-in-context.herokuapp.com"
     REDIRECT_URI = "{}/callback/q".format(CLIENT_SIDE_URL)
     START_PAGE_LINK = "{}/start".format(CLIENT_SIDE_URL)
 
