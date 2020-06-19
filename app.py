@@ -84,7 +84,7 @@ def playlistform():
         if not formData:
             return render_template("flaskform.html", form=form)
         else:
-            clusterUIPage = "{}/ui?refresh_token={}&form_data={}&mode=cluster".format(BASE_URL, refresh_token, ",".join(formData))
+            clusterUIPage = "{}/ui?refresh_token={}&form_data={}&mode=playlist".format(BASE_URL, refresh_token, ",".join(formData))
             return redirect(clusterUIPage) 
     else:
         print(form.errors)
