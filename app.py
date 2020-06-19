@@ -21,12 +21,15 @@ app.config.from_object(__name__)
 if ENV == 'dev':
     CLIENT_SIDE_URL = "http://127.0.0.1"
     PORT = 3000
+    BASE_URL = "{}:{}".format(CLIENT_SIDE_URL, PORT)
     REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
     START_PAGE_LINK = "{}:{}/start".format(CLIENT_SIDE_URL, PORT)
 elif ENV == 'heroku':
     CLIENT_SIDE_URL = "https://music-in-context.herokuapp.com"
+    BASE_URL = CLIENT_SIDE_URL
     REDIRECT_URI = "{}/callback/q".format(CLIENT_SIDE_URL)
     START_PAGE_LINK = "{}/start".format(CLIENT_SIDE_URL)
+    
 
 @app.route("/")
 def home():
@@ -47,7 +50,7 @@ def callback():
     return redirect(authorization.get_accessToken(request.args['code']))
 
 @app.route("/playlistform", methods=["GET","POST"])
-def authed():
+def playlistform():
 
     #grab the tokens from the URL + intialize data class
     access_token = request.args.get("access_token")
@@ -58,11 +61,10 @@ def authed():
         
     #build the link for each playlist
     allUserPlaylists = spotifyDataRetrieval.currentUserPlaylists()
-    print('here')
-    print(allUserPlaylists)
+
     checkboxData = []
     for playlist in allUserPlaylists:
-        checkboxFormatPlaylist = (playlist['uri'],playlist['playlistName'])
+        checkboxFormatPlaylist = (spotifyDataRetrieval.URItoID(playlist['uri']),playlist['playlistName'])
         checkboxData.append(checkboxFormatPlaylist)
 
     #set up the checkbox classes
@@ -82,7 +84,7 @@ def authed():
         if not formData:
             return render_template("flaskform.html", form=form)
         else:
-            clusterUIPage = "{}/ui?refresh_token={}&data={}".format(CLIENT_SIDE_URL, refresh_token, ",".join(formData))
+            clusterUIPage = "{}/ui?refresh_token={}&form_data={}&mode=cluster".format(BASE_URL, refresh_token, ",".join(formData))
             return redirect(clusterUIPage) 
     else:
         print(form.errors)
@@ -93,6 +95,7 @@ def authed():
 
 @app.route("/ui")
 def serve():
+    print('serving ui')
     return render_template('index.html') 
 
 #instantiate app
