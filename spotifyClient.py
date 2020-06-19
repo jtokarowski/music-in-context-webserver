@@ -28,7 +28,7 @@ if ENV == 'dev':
     AUTHED_URL = "{}:{}/authed".format(CLIENT_SIDE_URL, PORT)
     REFRESH_URL = "{}:{}/refresh".format(CLIENT_SIDE_URL, PORT)
 elif ENV == 'heroku':
-    CLIENT_SIDE_URL = "https://musicincontext.herokuapp.com"
+    CLIENT_SIDE_URL = "https://music-in-context.herokuapp.com"
     REDIRECT_URI = "{}/callback/q".format(CLIENT_SIDE_URL)
     PLAYLIST_FORM_URL = "{}/playlistform".format(CLIENT_SIDE_URL)
     UI_URL = "{}/ui".format(CLIENT_SIDE_URL)
