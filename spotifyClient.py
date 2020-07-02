@@ -91,7 +91,7 @@ class auth:
         refresh_token = response_data["refresh_token"]
         token_type = "Bearer" #always bearer, don't need to grab this each request
         expires_in = response_data["expires_in"]
-        newPage = "{}?access_token={}&refresh_token={}&expires_in={}".format(PLAYLIST_FORM_URL, access_token, refresh_token, expires_in)
+        newPage = "{}?access_token={}&refresh_token={}&expires_in={}&mode=cluster".format(PLAYLIST_FORM_URL, access_token, refresh_token, expires_in) #TODO make a mode selection page between login and playlist form
         
         return newPage
 

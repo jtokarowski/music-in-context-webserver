@@ -52,51 +52,13 @@ def callback():
 @app.route("/playlistform", methods=["GET","POST"])
 def playlistform():
 
-    #grab the tokens from the URL + intialize data class
-    access_token = request.args.get("access_token")
-    refresh_token = request.args.get("refresh_token")
-    token_type = "Bearer" #always bearer, don't need to grab this each request
-    expires_in = request.args["expires_in"]
-    spotifyDataRetrieval = data(access_token)
-        
-    #build the link for each playlist
-    allUserPlaylists = spotifyDataRetrieval.currentUserPlaylists()
-
-    checkboxData = []
-    for playlist in allUserPlaylists:
-        checkboxFormatPlaylist = (spotifyDataRetrieval.URItoID(playlist['uri']),playlist['playlistName'])
-        checkboxData.append(checkboxFormatPlaylist)
-
-    #set up the checkbox classes
-    class MultiCheckboxField(SelectMultipleField):
-        widget = widgets.ListWidget(prefix_label=False)
-        option_widget = widgets.CheckboxInput()
-
-    class SimpleForm(FlaskForm):
-        # create a list of value/description tuples
-        files = [(x, y) for x,y in checkboxData]
-        playlistSelections = MultiCheckboxField('Label', choices=files)
-
-    form = SimpleForm()
-
-    if form.validate_on_submit():
-        formData = form.playlistSelections.data
-        if not formData:
-            return render_template("flaskform.html", form=form)
-        else:
-            clusterUIPage = "{}/ui?refresh_token={}&form_data={}&mode=cluster".format(BASE_URL, refresh_token, ",".join(formData))
-            return redirect(clusterUIPage) 
-    else:
-        print(form.errors)
-        #TODO better error handling
-
-    return render_template("flaskform.html", form=form)
+    return render_template("reacttoggleform.html")
 
 
 @app.route("/ui")
 def serve():
     print('serving ui')
-    return render_template('index.html') 
+    return render_template('visualizations.html') 
 
 #instantiate app
 if __name__ == "__main__":
