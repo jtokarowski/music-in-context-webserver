@@ -54,8 +54,8 @@ def flowselection():
 
     refresh_token = request.args['refresh_token']
     #need to send it the link to start the playlist and cluster flow
-    clusterlink = "{}/multicheckboxform/?refresh_token={}&mode=cluster".format(BASE_URL, refresh_token)
-    playlistLink = "{}/radioform/?refresh_token={}&mode=playlist".format(BASE_URL, refresh_token)
+    clusterlink = "{}/multicheckboxform?refresh_token={}&mode=cluster".format(BASE_URL, refresh_token)
+    playlistLink = "{}/radioform?refresh_token={}&mode=playlist".format(BASE_URL, refresh_token)
 
     return render_template("flowselection.html", clusterFlowStartLink=clusterlink, playlistFlowStartLink=playlistLink)
 
