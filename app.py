@@ -61,6 +61,7 @@ def flowselection():
 
 @app.route("/multicheckboxform", methods=["GET","POST"])
 def multicheckboxform():
+    print('arrived in the correct method')
 
     return render_template("reacttoggleform.html")
 
