@@ -25,11 +25,13 @@ if ENV == 'dev':
     REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
     UI_URL = "{}:{}/ui".format(CLIENT_SIDE_URL, PORT)
     PLAYLIST_FORM_URL = "{}:{}/playlistform".format(CLIENT_SIDE_URL, PORT)
+    FLOW_SELECTION_URL = "{}:{}/flowselection".format(CLIENT_SIDE_URL, PORT)
     AUTHED_URL = "{}:{}/authed".format(CLIENT_SIDE_URL, PORT)
     REFRESH_URL = "{}:{}/refresh".format(CLIENT_SIDE_URL, PORT)
 elif ENV == 'heroku':
     CLIENT_SIDE_URL = "https://music-in-context.herokuapp.com"
     REDIRECT_URI = "{}/callback/q".format(CLIENT_SIDE_URL)
+    FLOW_SELECTION_URL = "{}/flowselection".format(CLIENT_SIDE_URL)
     PLAYLIST_FORM_URL = "{}/playlistform".format(CLIENT_SIDE_URL)
     UI_URL = "{}/ui".format(CLIENT_SIDE_URL)
     REFRESH_URL = "{}/refresh".format(CLIENT_SIDE_URL)
@@ -91,7 +93,7 @@ class auth:
         refresh_token = response_data["refresh_token"]
         token_type = "Bearer" #always bearer, don't need to grab this each request
         expires_in = response_data["expires_in"]
-        newPage = "{}?access_token={}&refresh_token={}&expires_in={}&mode=cluster".format(PLAYLIST_FORM_URL, access_token, refresh_token, expires_in) #TODO make a mode selection page between login and playlist form
+        newPage = "{}?&refresh_token={}".format(FLOW_SELECTION_URL, refresh_token)
         
         return newPage
 
