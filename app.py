@@ -54,21 +54,15 @@ def flowselection():
 
     refresh_token = request.args['refresh_token']
     #need to send it the link to start the playlist and cluster flow
-    clusterlink = "{}/multicheckboxform?refresh_token={}&mode=cluster".format(BASE_URL, refresh_token)
-    playlistLink = "{}/radioform?refresh_token={}&mode=playlist".format(BASE_URL, refresh_token)
+    clusterlink = "{}/playlistform?refresh_token={}&mode=cluster".format(BASE_URL, refresh_token)
+    playlistLink = "{}/playlistform?refresh_token={}&mode=playlist".format(BASE_URL, refresh_token)
 
     return render_template("flowselection.html", clusterFlowStartLink=clusterlink, playlistFlowStartLink=playlistLink)
 
-@app.route("/multicheckboxform", methods=["GET","POST"])
+@app.route("/playlistform", methods=["GET","POST"])
 def multicheckboxform():
-    print('arrived in the correct method')
 
-    return render_template("reacttoggleform.html")
-
-@app.route("/radioform", methods=["GET","POST"])
-def radioform():
-
-    return render_template("reactradioform.html")
+    return render_template("playlistform.html")
 
 
 @app.route("/ui")
