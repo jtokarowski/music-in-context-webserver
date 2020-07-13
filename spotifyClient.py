@@ -1,6 +1,7 @@
 from __future__ import print_function
 import sys
 import requests
+from requests_futures.sessions import FuturesSession
 import json
 import time
 from datetime import date
@@ -22,6 +23,7 @@ SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
 if ENV == 'dev':
     CLIENT_SIDE_URL = "http://127.0.0.1"
     PORT = 3000
+    BASE_URL = "{}:{}".format(CLIENT_SIDE_URL, PORT)
     REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
     UI_URL = "{}:{}/ui".format(CLIENT_SIDE_URL, PORT)
     PLAYLIST_FORM_URL = "{}:{}/playlistform".format(CLIENT_SIDE_URL, PORT)
@@ -30,6 +32,7 @@ if ENV == 'dev':
     REFRESH_URL = "{}:{}/refresh".format(CLIENT_SIDE_URL, PORT)
 elif ENV == 'heroku':
     CLIENT_SIDE_URL = "https://music-in-context.herokuapp.com"
+    BASE_URL = CLIENT_SIDE_URL
     REDIRECT_URI = "{}/callback/q".format(CLIENT_SIDE_URL)
     FLOW_SELECTION_URL = "{}/flowselection".format(CLIENT_SIDE_URL)
     PLAYLIST_FORM_URL = "{}/playlistform".format(CLIENT_SIDE_URL)
@@ -91,6 +94,12 @@ class auth:
         response_data = json.loads(post_request.text)
         access_token = response_data["access_token"]
         refresh_token = response_data["refresh_token"]
+
+        #async send the refresh token to the backend to create userContext
+        session = FuturesSession()
+        asyncPostURL = '{}/usercontext'.format(BASE_URL)
+        asyncPost = session.post(asyncPostURL, json={'refresh_token': refresh_token})
+
         token_type = "Bearer" #always bearer, don't need to grab this each request
         expires_in = response_data["expires_in"]
         newPage = "{}?&refresh_token={}".format(FLOW_SELECTION_URL, refresh_token)

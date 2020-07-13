@@ -4,11 +4,6 @@ import requests
 from datetime import date
 from spotifyClient import auth, data
 import os
-from flask_wtf import FlaskForm
-from wtforms import widgets, SelectMultipleField
-import itertools
-from collections import Counter
-from operator import itemgetter
 
 ENV = os.environ.get('ENV')
 SECRET_KEY = ' ' #This doesn't actually get used, but simpleForm needs this to run
