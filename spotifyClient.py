@@ -24,6 +24,7 @@ if ENV == 'dev':
     CLIENT_SIDE_URL = "http://127.0.0.1"
     PORT = 3000
     BASE_URL = "{}:{}".format(CLIENT_SIDE_URL, PORT)
+    BACKEND_URL = "{}:{}".format(CLIENT_SIDE_URL, 7000)
     REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
     UI_URL = "{}:{}/ui".format(CLIENT_SIDE_URL, PORT)
     PLAYLIST_FORM_URL = "{}:{}/playlistform".format(CLIENT_SIDE_URL, PORT)
@@ -33,6 +34,7 @@ if ENV == 'dev':
 elif ENV == 'heroku':
     CLIENT_SIDE_URL = "https://music-in-context.herokuapp.com"
     BASE_URL = CLIENT_SIDE_URL
+    BACKEND_URL = "https://music-in-context-backend.herokuapp.com"
     REDIRECT_URI = "{}/callback/q".format(CLIENT_SIDE_URL)
     FLOW_SELECTION_URL = "{}/flowselection".format(CLIENT_SIDE_URL)
     PLAYLIST_FORM_URL = "{}/playlistform".format(CLIENT_SIDE_URL)
@@ -97,7 +99,7 @@ class auth:
 
         #async send the refresh token to the backend to create userContext
         session = FuturesSession()
-        asyncPostURL = '{}/usercontext'.format(BASE_URL)
+        asyncPostURL = '{}/usercontext'.format(BACKEND_URL)
         asyncPost = session.post(asyncPostURL, json={'refresh_token': refresh_token})
 
         token_type = "Bearer" #always bearer, don't need to grab this each request
