@@ -25,6 +25,7 @@ if ENV == 'dev':
     PORT = 3000
     BASE_URL = "{}:{}".format(CLIENT_SIDE_URL, PORT)
     BACKEND_URL = "{}:{}".format(CLIENT_SIDE_URL, 7000)
+    BACKEND_URL = "https://music-in-context-backend.herokuapp.com"
     REDIRECT_URI = "{}:{}/callback/q".format(CLIENT_SIDE_URL, PORT)
     UI_URL = "{}:{}/ui".format(CLIENT_SIDE_URL, PORT)
     PLAYLIST_FORM_URL = "{}:{}/playlistform".format(CLIENT_SIDE_URL, PORT)
