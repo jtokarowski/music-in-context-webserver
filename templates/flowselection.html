@@ -10,25 +10,24 @@
     <body>
         <p>
             <br> 
-            This app currently offers 3 user flows.
             <br>
             <br> 
-            1) Subgenre analysis - all songs in selected user playlists will be analyzed using a clustering algorithm, 
-            resulting in 5 new playlists determined by musical similarity.
             <br> 
-            <a href={{ clusterFlowStartLink }}>Enter Cluster Mode</a>
+            Order matters in playlist construction, and professional DJ's are experts at designing playlists.
+
+            This model will build a pool of recommended tracks based on your most frequently played artists,
+            and arrange them in a pattern inspired by famous DJ's, such as Nora en Pure, Armin van Buuren, and Martin Garrix.
+
+            The pool of recommendations will be organized into sub-genres, from which you can select one or more for inclusion in the final playlist.
+            The model will pull from this pool of tracks, and order them to match a top DJ's style.
+
+            You can interact with the visualization of the playlist by dragging the radar chart and the line chart to values you prefer.
+
+            Clicking 'get me new tracks' will request different songs from your personalized pool of recommendations that fit more closely with your preference.
+
+            When you are satisfied with the progression of the playlist, click 'Create Playlist in Spotify' to automatically upload to your Spotify library.
             <br>
-            <br> 
-            2) Playlist analysis - all songs in 1 selected user playlist will be pulled into a radar and line chart,
-            to visually examine patterns in playlist construction
-            <br> 
-            <a href={{ playlistFlowStartLink     }}>Enter Playlist Mode</a>
-            <br> 
-            <br> 
-            3) Beta Functionality: the model will retrieve the user's top recent tracks and build a pool of recommendations.
-            The model will then fit the recommendations to a 'curve' and present the complete set as a playlist in Spotify
-            <br>
-            <a href={{ tunnelFlowStartLink     }}>Enter Tunnel Mode</a>
+            <a href={{ tunnelFlowStartLink     }}>Select sub-genres for inclusion in the playlist</a>
             <br> 
             <br> 
             <p>
