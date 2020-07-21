@@ -49,14 +49,13 @@ def flowselection():
 
     refresh_token = request.args['refresh_token']
     #need to send it the link to start the playlist and cluster flow
-    clusterlink = "{}/playlistform?refresh_token={}&mode=cluster".format(BASE_URL, refresh_token)
-    playlistLink = "{}/playlistform?refresh_token={}&mode=playlist".format(BASE_URL, refresh_token)
-    tunnelLink = "{}/playlistform?refresh_token={}&mode=tunnel".format(BASE_URL, refresh_token)
+    playlistLink = "{}/form?refresh_token={}&mode=playlist".format(BASE_URL, refresh_token)
+    tunnelLink = "{}/form?refresh_token={}&mode=tunnel".format(BASE_URL, refresh_token)
 
-    return render_template("flowselection.html", clusterFlowStartLink=clusterlink, playlistFlowStartLink=playlistLink, tunnelFlowStartLink=tunnelLink)
+    return render_template("flowselection.html", playlistFlowStartLink=playlistLink, tunnelFlowStartLink=tunnelLink)
 
-@app.route("/playlistform", methods=["GET","POST"])
-def multicheckboxform():
+@app.route("/form", methods=["GET","POST"])
+def form():
 
     return render_template("playlistform.html")
 
